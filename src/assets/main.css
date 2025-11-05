@@ -25,10 +25,15 @@ a,
   body {
     display: flex;
     place-items: center;
+    align-items: center;
   }
 
   #app {
-    display: grid;
+    /* display: grid; */
+    display: block;
+    max-width: 1024px;        /* ✅ Giới hạn tối đa 1024px */
+    width: 100%;
+    margin: 0 auto; 
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
