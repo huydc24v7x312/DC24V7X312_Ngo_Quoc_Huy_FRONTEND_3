@@ -29,6 +29,45 @@
       <label for="favorite" class="form-check-label"><strong>Liên hệ yêu thích</strong></label>
     </div>
 
+     <!-- Checkbox: Sở thích -->
+      <div class="form-group mb-3">
+        <label><strong>Sở thích:</strong></label><br />
+        <div
+          class="form-check form-check-inline"
+          v-for="(hobby, index) in hobbies"
+          :key="index"
+        >
+          <input
+            class="form-check-input"
+            type="checkbox"
+            :id="'hobby' + index"
+            v-model="contactLocal.hobbies"
+            :value="hobby"
+          />
+          <label class="form-check-label" :for="'hobby' + index">{{ hobby }}</label>
+        </div>
+      </div>
+
+      <!-- Radio: Tình trạng gia đình -->
+      <div class="form-group mb-4">
+        <label><strong>Tình trạng gia đình:</strong></label><br />
+        <div
+          class="form-check form-check-inline"
+          v-for="(status, index) in familyStatuses"
+          :key="index"
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            name="familyStatus"
+            :id="'status' + index"
+            v-model="contactLocal.familyStatus"
+            :value="status"
+          />
+          <label class="form-check-label" :for="'status' + index">{{ status }}</label>
+        </div>
+      </div>
+
     <div class="form-group">
       <button class="btn btn-primary">Lưu</button>
       <button v-if="contactLocal._id" type="button" class="ml-2 btn btn-danger" @click="deleteContact">Xóa</button>
@@ -55,8 +94,15 @@ export default {
     return { 
         // Chúng ta sẽ không muốn hiệu chỉnh props, nên tạo biến cục bộ
         // contactLocal để liên kết với các input trên form
-        contactLocal: this.contact, 
-        contactFormSchema };
+        contactLocal: {
+          ...this.contact,
+          hobbies: this.contact.hobbies || [],
+          familyStatus: this.contact.familyStatus || "",
+        },
+        contactFormSchema,
+        hobbies: ["Đọc sách", "Du lịch", "Nghe nhạc", "Thể thao"],
+        familyStatuses: ["Độc thân", "Đã kết hôn", "Ly hôn"],
+      };
   },
   methods: {
     submitContact() {
